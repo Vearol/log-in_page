@@ -1,0 +1,30 @@
+﻿@model IEnumerable<LogInPage.Models.Account>
+
+@{
+    ViewBag.Title = "Account";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Account</h2>
+ 
+<table  class="table">
+
+    @foreach (var dayGroup in Model.GroupBy(x => x.Date.Date))
+    {
+        foreach (var personGroup in dayGroup.GroupBy(x => x.Email))
+        {
+            var list = personGroup.ToList();
+            int count = list.Count();
+            var item = list.First();
+
+            {
+        <div class="list-group">
+                @Html.DisplayFor(modelItem => item.Name)
+                @Html.DisplayFor(modelItem => item.Email)
+                @Html.Raw(count)
+                @Html.DisplayFor(modelItem => item.Date.Date)
+            </div>
+            }
+        }
+    }
+</table>
